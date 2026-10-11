@@ -4,10 +4,13 @@ A bilingual community health camp finder with a Node.js and Express backend.
 
 ## Run locally
 
-1. Install Node.js 18 or newer.
-2. Open a terminal in this folder and run `npm install`.
-3. Run `npm start`.
-4. Open `http://localhost:3000` (the API health check is at `/api/health`).
+1. Install Node.js 20.19 or newer.
+2. Open PowerShell in this folder and run `npm install`.
+3. In Terminal 1, start the backend with `npm run backend` (Express API at `http://localhost:3000`).
+4. In Terminal 2, start the frontend with `npm run frontend` (Vite at `http://localhost:5173`).
+5. Open `http://localhost:5173` in your browser. Vite forwards `/api` requests to Express. The admin page is at `http://localhost:5173/admin`.
+
+For a single-process run (same arrangement used by Render), use `npm start` and open `http://localhost:3000` instead.
 
 ## Backend features
 
