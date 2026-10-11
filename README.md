@@ -18,7 +18,7 @@ A bilingual community health camp finder with a Node.js and Express backend.
 - Admin passwords are stored as salted scrypt hashes. Admin sessions use an HTTP-only cookie.
 - JSON files are stored in `data/` by default. Set `DATA_DIR` to change the storage folder.
 - `GET /api/health` can be used by hosting health checks.
-- Volunteer applications and organiser camp submissions can send email notifications through Resend when `RESEND_API_KEY`, `NOTIFICATION_EMAIL`, and `RESEND_FROM` are configured. Submissions are still saved if email settings are missing or delivery fails; the form reports that email notifications are not configured.
+- Volunteer applications and organiser camp submissions can send email notifications over SMTP when `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS`, and `NOTIFICATION_EMAIL` are configured. Submissions are still saved if email settings are missing or delivery fails; the form reports that email notifications are not configured.
 
 The initial camp listings are sample project data. This project currently uses JSON-file storage, suitable for a single running instance. Do not run multiple app instances against the same JSON files.
 
@@ -30,7 +30,7 @@ For persistent JSON data, attach a persistent disk to the web service, set its m
 
 After deployment, open `/admin` and create a unique password of at least 12 characters. Keep the admin URL and password private. The first admin account is created by whoever reaches setup first, so perform setup promptly after the site is live.
 
-To enable email notifications, create a Resend account, verify a sender address/domain, then set `RESEND_API_KEY`, `NOTIFICATION_EMAIL` (the inbox that should receive submissions), and `RESEND_FROM` (a sender address Resend has approved) in the Render service's Environment settings. Never put the API key in GitHub or in frontend code. Resend's official API accepts email submissions from the server.
+To enable email notifications with Gmail, turn on Google 2-Step Verification and create a separate App Password for Mail. In the Render service's Environment settings, set `SMTP_HOST=smtp.gmail.com`, `SMTP_PORT=465`, `SMTP_SECURE=true`, `SMTP_USER` to the sending Gmail address, `SMTP_PASS` to the App Password, and `NOTIFICATION_EMAIL` to the inbox that should receive submissions. `MAIL_FROM` can be left blank or set to the sending address. Never use your main Google password, and never put an App Password in GitHub or frontend code. Gmail is suitable for this low-volume demo, not a high-volume production mail system.
 
 ## Add a camp
 

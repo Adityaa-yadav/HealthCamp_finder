@@ -1,4 +1,5 @@
 const express = require("express");
+const nodemailer = require("nodemailer");
 const fs = require("node:fs");
 const path = require("node:path");
 const { randomUUID, randomBytes, scryptSync, timingSafeEqual } = require("node:crypto");
@@ -70,21 +71,29 @@ function passwordMatches(password, admin) {
 function validEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
 function validDate(date) { return /^\d{4}-\d{2}-\d{2}$/.test(date) && !Number.isNaN(Date.parse(`${date}T00:00:00`)); }
 async function notifyAdmin(subject, fields, replyTo) {
-  const apiKey = process.env.RESEND_API_KEY;
+  const smtpUser = process.env.SMTP_USER;
+  const smtpPass = process.env.SMTP_PASS;
   const recipient = process.env.NOTIFICATION_EMAIL;
-  const sender = process.env.RESEND_FROM;
-  if (!apiKey || !recipient || !sender) return false;
+  const host = process.env.SMTP_HOST;
+  if (!smtpUser || !smtpPass || !recipient || !host) return false;
   try {
-    const response = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      signal: AbortSignal.timeout(10000),
-      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ from: sender, to: [recipient], subject, text: fields.join("\n"), ...(replyTo ? { reply_to: replyTo } : {}) })
+    const port = Number(process.env.SMTP_PORT) || 465;
+    const transporter = nodemailer.createTransport({
+      host,
+      port,
+      secure: process.env.SMTP_SECURE === "true" || port === 465,
+      auth: { user: smtpUser, pass: smtpPass },
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 10000
     });
-    if (!response.ok) {
-      console.warn(`Email notification was rejected by the provider (HTTP ${response.status}).`);
-      return false;
-    }
+    await transporter.sendMail({
+      from: process.env.MAIL_FROM || smtpUser,
+      to: recipient,
+      subject,
+      text: fields.join("\n"),
+      ...(replyTo ? { replyTo } : {})
+    });
     return true;
   } catch {
     console.warn("Email notification could not reach the provider.");
