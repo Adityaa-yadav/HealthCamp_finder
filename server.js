@@ -69,6 +69,28 @@ function passwordMatches(password, admin) {
 }
 function validEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
 function validDate(date) { return /^\d{4}-\d{2}-\d{2}$/.test(date) && !Number.isNaN(Date.parse(`${date}T00:00:00`)); }
+async function notifyAdmin(subject, fields, replyTo) {
+  const apiKey = process.env.RESEND_API_KEY;
+  const recipient = process.env.NOTIFICATION_EMAIL;
+  const sender = process.env.RESEND_FROM;
+  if (!apiKey || !recipient || !sender) return false;
+  try {
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      signal: AbortSignal.timeout(10000),
+      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ from: sender, to: [recipient], subject, text: fields.join("\n"), ...(replyTo ? { reply_to: replyTo } : {}) })
+    });
+    if (!response.ok) {
+      console.warn(`Email notification was rejected by the provider (HTTP ${response.status}).`);
+      return false;
+    }
+    return true;
+  } catch {
+    console.warn("Email notification could not reach the provider.");
+    return false;
+  }
+}
 
 app.get("/api/health", (_req, res) => res.json({ status: "ok" }));
 app.get("/api/admin/status", (req, res) => res.json({ configured: Boolean(readAdmin()), authenticated: Boolean(getSession(req)) }));
@@ -76,7 +98,7 @@ app.get("/api/admin/volunteers", requireAdmin, (_req, res) => {
   try { res.json(readJson(VOLUNTEERS_FILE, [])); }
   catch { res.status(500).json({ error: "Volunteer applications are temporarily unavailable." }); }
 });
-app.post("/api/volunteers", (req, res) => {
+app.post("/api/volunteers", async (req, res) => {
   const input = req.body || {};
   const volunteer = {
     id: randomUUID(), name: clean(input.name, 100), email: clean(input.email, 150),
@@ -90,7 +112,12 @@ app.post("/api/volunteers", (req, res) => {
     const volunteers = readJson(VOLUNTEERS_FILE, []);
     volunteers.push(volunteer);
     writeJson(VOLUNTEERS_FILE, volunteers);
-    return res.status(201).json({ id: volunteer.id });
+    const emailSent = await notifyAdmin("New volunteer application", [
+      `Name: ${volunteer.name}`, `Email: ${volunteer.email}`, `City: ${volunteer.city}`,
+      `Interest: ${volunteer.interest}`, `Message: ${volunteer.message || "—"}`,
+      `Submitted: ${volunteer.submittedAt}`
+    ], volunteer.email);
+    return res.status(201).json({ id: volunteer.id, emailSent });
   } catch { return res.status(500).json({ error: "Could not save volunteer interest." }); }
 });
 app.post("/api/admin/setup", (req, res) => {
@@ -112,7 +139,7 @@ app.post("/api/admin/logout", (req, res) => {
   res.clearCookie("hcf_admin", { httpOnly: true, sameSite: "strict", secure: process.env.NODE_ENV === "production", path: "/" });
   res.json({ authenticated: false });
 });
-app.post("/api/admin/camps", requireAdmin, (req, res) => {
+app.post("/api/admin/camps", requireAdmin, async (req, res) => {
   const input = req.body || {};
   const camp = {
     id: randomUUID(), name: clean(input.name, 100), nameHi: clean(input.nameHi, 100),
@@ -129,7 +156,12 @@ app.post("/api/admin/camps", requireAdmin, (req, res) => {
     const camps = readJson(DATA_FILE, []);
     camps.push(camp);
     writeJson(DATA_FILE, camps);
-    return res.status(201).json({ id: camp.id });
+    const emailSent = await notifyAdmin("New health camp organiser registration", [
+      `Camp: ${camp.name}`, `Service: ${camp.service}`, `City: ${camp.city}`,
+      `Address: ${camp.address}`, `Date: ${camp.date}`, `Time: ${camp.time}`,
+      `Organiser email: ${camp.email}`
+    ], camp.email);
+    return res.status(201).json({ id: camp.id, emailSent });
   } catch { return res.status(500).json({ error: "Could not save the camp." }); }
 });
 app.get("/api/camps", (_req, res) => {
@@ -138,7 +170,7 @@ app.get("/api/camps", (_req, res) => {
     res.json(publicCamps);
   } catch { res.status(500).json({ error: "Camp listings are temporarily unavailable." }); }
 });
-app.post("/api/camps", (req, res) => {
+app.post("/api/camps", async (req, res) => {
   const input = req.body || {};
   const camp = {
     id: randomUUID(), name: clean(input.name, 100), service: clean(input.service, 20),
@@ -152,7 +184,12 @@ app.post("/api/camps", (req, res) => {
     const camps = readJson(DATA_FILE, []);
     camps.push(camp);
     writeJson(DATA_FILE, camps);
-    return res.status(201).json({ id: camp.id });
+    const emailSent = await notifyAdmin("New health camp organiser registration", [
+      `Camp: ${camp.name}`, `Service: ${camp.service}`, `City: ${camp.city}`,
+      `Address: ${camp.address}`, `Date: ${camp.date}`, `Time: ${camp.time}`,
+      `Organiser email: ${camp.email}`
+    ], camp.email);
+    return res.status(201).json({ id: camp.id, emailSent });
   } catch { return res.status(500).json({ error: "Could not save the camp." }); }
 });
 

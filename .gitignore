@@ -3,3 +3,6 @@ data/volunteers.json
 node_modules/
 npm-debug.log*
 New Compressed (zipped) Folder.zip
+.env
+.env.*
+!.env.example

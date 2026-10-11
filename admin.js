@@ -77,9 +77,11 @@ campForm.addEventListener("submit", async event => {
   values.lat = Number(values.lat);
   values.lon = Number(values.lon);
   try {
-    await api("/api/admin/camps", { method: "POST", body: JSON.stringify(values) });
+    const result = await api("/api/admin/camps", { method: "POST", body: JSON.stringify(values) });
     campForm.reset();
-    campStatus.textContent = "Camp added to the public website.";
+    campStatus.textContent = result.emailSent
+      ? "Camp added to the website; an email notification was sent."
+      : "Camp added to the website. Email notifications are not configured yet.";
     await loadAdminCamps();
   } catch (error) { campStatus.textContent = error.message; }
   finally { button.disabled = false; }

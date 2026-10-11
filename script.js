@@ -229,7 +229,9 @@ registerForm.addEventListener("submit", async event => {
     });
     const result = await response.json();
     if (!response.ok) throw new Error(result.error || "Registration failed");
-    registerStatus.textContent = isHindi ? "शिविर सफलतापूर्वक जोड़ दिया गया।" : "Your camp has been added successfully.";
+    registerStatus.textContent = result.emailSent
+      ? (isHindi ? "शिविर सफलतापूर्वक जोड़ दिया गया और आपको ईमेल सूचना भेजी गई।" : "Camp submitted successfully. An email notification was sent.")
+      : (isHindi ? "शिविर सेव हो गया है; ईमेल सूचना अभी सेट नहीं है।" : "Camp submitted successfully. Email notifications are not configured yet.");
     registerForm.reset();
     await loadCamps();
     document.getElementById("camps").scrollIntoView({ behavior: "smooth" });
@@ -253,7 +255,9 @@ volunteerForm.addEventListener("submit", async event => {
     const result = await response.json();
     if (!response.ok) throw new Error(result.error || "Could not submit");
     volunteerForm.reset();
-    volunteerStatus.textContent = isHindi ? "धन्यवाद! आपकी स्वयंसेवा रुचि भेज दी गई है।" : "Thank you! Your volunteer interest has been submitted.";
+    volunteerStatus.textContent = result.emailSent
+      ? (isHindi ? "धन्यवाद! आवेदन सेव हुआ और आपको ईमेल सूचना भेजी गई।" : "Thanks! Your application was saved and an email notification was sent.")
+      : (isHindi ? "आवेदन सेव हो गया है; ईमेल सूचना अभी सेट नहीं है।" : "Your application was saved. Email notifications are not configured yet.");
   } catch (error) {
     volunteerStatus.textContent = isHindi ? `जमा नहीं हो पाया: ${error.message}` : `Could not submit: ${error.message}`;
   } finally { button.disabled = false; }
