@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HealthCamp Finder | स्वास्थ्य शिविर खोजें</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=20261011-5" />
+</head>
+
+<body>
+  <header class="nav-wrap">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="brand" href="#home"><span class="brand-mark">✚</span><span>HealthCamp<em>Finder</em></span></a>
+      <div class="nav-links">
+        <a href="#camps" data-en="Find camps" data-hi="शिविर खोजें">Find camps</a>
+        <a href="#about" data-en="Our mission" data-hi="हमारा लक्ष्य">Our mission</a>
+        <a href="#volunteer" data-en="Volunteer" data-hi="स्वयंसेवक">Volunteer</a>
+        <a href="#register" data-en="For organisers" data-hi="आयोजकों के लिए">For organisers</a>
+      </div>
+      <div class="nav-actions">
+        <button class="language" id="languageToggle" aria-label="Switch language">हिंदी</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow" data-en="Healthcare should reach everyone" data-hi="स्वास्थ्य सेवा हर व्यक्ति तक पहुँचे">
+            Healthcare should reach everyone</p>
+          <h1 data-en="Find care. Find hope. <span>Near you.</span>"
+            data-hi="देखभाल पाएँ। उम्मीद पाएँ। <span>अपने पास।</span>">Find care. Find hope. <span>Near you.</span></h1>
+          <p class="hero-text"
+            data-en="Discover free and affordable health camps in your community—from check-ups and screenings to specialist consultations."
+            data-hi="अपने समुदाय में निःशुल्क और किफायती स्वास्थ्य शिविर खोजें—जाँच, स्क्रीनिंग और विशेषज्ञ सलाह के लिए।">
+            Discover free and affordable health camps in your community—from check-ups and screenings to specialist
+            consultations.</p>
+          <div class="hero-buttons">
+            <a class="btn" href="#camps" data-en="Find a health camp" data-hi="स्वास्थ्य शिविर खोजें">Find a health camp
+              <span>→</span></a>
+            <a class="text-link" href="#about" data-en="How it works" data-hi="यह कैसे काम करता है">How it works
+              <span>↓</span></a>
+          </div>
+          <div class="trust-row">
+            <div class="avatars"><span>RK</span><span>AS</span><span>PM</span><span>+</span></div>
+            <p><strong data-en="Free & affordable camps" data-hi="निःशुल्क और किफायती शिविर">Free &amp; affordable camps</strong><br><span
+                data-en="shared by local organisers" data-hi="स्थानीय आयोजकों द्वारा साझा">shared by local organisers</span>
+            </p>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="sun"></div>
+          <div class="cross-bg">✚</div>
+          <div class="clinic-icon">⌁</div>
+          <div class="floating-card top"><span class="pin">●</span>
+            <div><b id="heroCampTitle" data-en="Upcoming health camp" data-hi="आगामी स्वास्थ्य शिविर">Upcoming health camp</b><small
+                id="heroCampSub" data-en="See local listings below" data-hi="नीचे स्थानीय शिविर देखें">See local listings below</small></div>
+          </div>
+          <div class="floating-card bottom"><span class="heart">♥</span>
+            <div><b data-en="Community care" data-hi="सामुदायिक देखभाल">Community care</b><small
+                data-en="For everyone, always" data-hi="हर किसी के लिए, हमेशा">For everyone, always</small></div>
+          </div>
+          <div class="people">👩‍⚕️ <span>👨‍👩‍👧</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="camps" class="camps section container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow" data-en="Explore nearby" data-hi="अपने आस-पास खोजें">Explore nearby</p>
+          <h2 data-en="Health camps near you" data-hi="आपके पास स्वास्थ्य शिविर">Health camps near you</h2>
+        </div><button class="filter" id="locationButton" data-en="⌖ Use my location" data-hi="⌖ मेरी जगह इस्तेमाल करें">⌖ Use my
+          location</button>
+      </div>
+      <div class="search-panel">
+        <label><span>⌕</span><input id="citySearch" type="search" placeholder="Search by city or locality"
+            data-en-placeholder="Search by city or locality" data-hi-placeholder="शहर या क्षेत्र से खोजें" /></label>
+        <select id="specialty">
+          <option value="all" data-en="All services" data-hi="सभी सेवाएँ">All services</option>
+          <option value="eye" data-en="Eye care" data-hi="नेत्र देखभाल">Eye care</option>
+          <option value="general" data-en="General health" data-hi="सामान्य स्वास्थ्य">General health</option>
+          <option value="women" data-en="Women & child" data-hi="महिला और बाल">Women & child</option>
+        </select>
+        <button class="btn" id="searchButton" data-en="Search camps" data-hi="शिविर खोजें">Search camps</button>
+      </div>
+      <div class="camp-grid" id="campGrid" aria-live="polite">
+        <article class="camp-card" data-city="new delhi" data-service="eye">
+          <div class="camp-image img-eye">👁</div>
+          <div class="card-body"><span class="tag" data-en="Eye care" data-hi="नेत्र देखभाल">Eye care</span>
+            <h3 data-en="Free Vision Screening Camp" data-hi="निःशुल्क दृष्टि जाँच शिविर">Free Vision Screening Camp
+            </h3>
+            <p>📍 Community Centre, New Delhi</p>
+            <div class="card-meta"><span>🗓 <b data-en="18 Oct" data-hi="18 अक्टू॰">18 Oct</b></span><span>◷ 10 AM – 4
+                PM</span></div><a href="#register" data-en="View details →" data-hi="विवरण देखें →">View details →</a>
+          </div>
+        </article>
+        <article class="camp-card" data-city="mumbai" data-service="general">
+          <div class="camp-image img-general">⚕</div>
+          <div class="card-body"><span class="tag orange" data-en="General health" data-hi="सामान्य स्वास्थ्य">General
+              health</span>
+            <h3 data-en="Healthy Families Health Camp" data-hi="स्वस्थ परिवार स्वास्थ्य शिविर">Healthy Families Health
+              Camp</h3>
+            <p>📍 Shivaji Nagar, Mumbai</p>
+            <div class="card-meta"><span>🗓 <b data-en="20 Oct" data-hi="20 अक्टू॰">20 Oct</b></span><span>◷ 9 AM – 3
+                PM</span></div><a href="#register" data-en="View details →" data-hi="विवरण देखें →">View details →</a>
+          </div>
+        </article>
+        <article class="camp-card" data-city="bengaluru bangalore" data-service="women">
+          <div class="camp-image img-women">♥</div>
+          <div class="card-body"><span class="tag purple" data-en="Women & child" data-hi="महिला और बाल">Women &
+              child</span>
+            <h3 data-en="Mother & Child Wellness Day" data-hi="माँ और बच्चे का स्वास्थ्य दिवस">Mother & Child Wellness
+              Day</h3>
+            <p>📍 Indiranagar, Bengaluru</p>
+            <div class="card-meta"><span>🗓 <b data-en="22 Oct" data-hi="22 अक्टू॰">22 Oct</b></span><span>◷ 10 AM – 2
+                PM</span></div><a href="#register" data-en="View details →" data-hi="विवरण देखें →">View details →</a>
+          </div>
+        </article>
+      </div>
+      <p class="no-results" id="noResults" hidden data-en="No camps found. Try a different location or service."
+        data-hi="कोई शिविर नहीं मिला। कोई अन्य जगह या सेवा चुनें।">No camps found. Try a different location or service.
+      </p>
+    </section>
+
+    <section class="featured-strip" aria-labelledby="featuredTitle">
+      <div class="container">
+        <div class="featured-heading">
+          <div><p class="eyebrow" data-en="Plan your visit" data-hi="अपनी यात्रा की योजना बनाएँ">Plan your visit</p>
+            <h2 id="featuredTitle" data-en="Upcoming community camps" data-hi="आने वाले सामुदायिक शिविर">Upcoming community camps</h2></div>
+          <div class="featured-controls">
+            <a class="text-link" href="#camps" data-en="Search all camps ↑" data-hi="सभी शिविर खोजें ↑">Search all camps ↑</a>
+            <button class="carousel-arrow" id="featuredPrev" type="button" aria-label="Scroll to previous camps" disabled>←</button>
+            <button class="carousel-arrow" id="featuredNext" type="button" aria-label="Scroll to more camps">→</button>
+          </div>
+        </div>
+        <p class="featured-intro" data-en="A quick look at the next camps, with dates, venues and map links." data-hi="आने वाले शिविरों की तारीख, स्थान और मैप लिंक एक जगह देखें।">A quick look at the next camps, with dates, venues and map links.</p>
+        <div id="featuredCamps" class="featured-preview-grid" role="region" aria-label="Upcoming health camps" aria-live="polite" tabindex="0"></div>
+      </div>
+    </section>
+
+    <section id="about" class="mission">
+      <div class="container mission-grid">
+        <div class="mission-art">
+          <div class="mission-circle">✚</div>
+          <div class="mission-note">24/7<br><small data-en="care access" data-hi="देखभाल पहुँच">care access</small>
+          </div>
+        </div>
+        <div>
+          <p class="eyebrow" data-en="Built for communities" data-hi="समुदायों के लिए बनाया गया">Built for communities
+          </p>
+          <h2 data-en="Good health begins with <span>access.</span>"
+            data-hi="अच्छे स्वास्थ्य की शुरुआत <span>पहुँच से होती है।</span>">Good health begins with
+            <span>access.</span></h2>
+          <p data-en="HealthCamp Finder connects people with trusted local organisations that bring essential healthcare closer to home."
+            data-hi="HealthCamp Finder लोगों को भरोसेमंद स्थानीय संगठनों से जोड़ता है जो आवश्यक स्वास्थ्य सेवा को घर के करीब लाते हैं।">
+            HealthCamp Finder connects people with trusted local organisations that bring essential healthcare closer to
+            home.</p>
+          <div class="steps">
+            <div><b>01</b><span data-en="Search verified camps" data-hi="सत्यापित शिविर खोजें">Search verified
+                camps</span></div>
+            <div><b>02</b><span data-en="Choose a time that works" data-hi="अपनी सुविधानुसार समय चुनें">Choose a time
+                that works</span></div>
+            <div><b>03</b><span data-en="Get care, with dignity" data-hi="सम्मान के साथ देखभाल पाएँ">Get care, with
+                dignity</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="volunteer" class="volunteer-section">
+      <div class="container volunteer-layout">
+        <div class="volunteer-copy">
+          <div class="volunteer-illustration" aria-hidden="true"><span>♥</span><i>✚</i></div>
+          <p class="eyebrow" data-en="Make a difference" data-hi="बदलाव लाएँ">Make a difference</p>
+          <h2 data-en="Your time can bring care closer." data-hi="आपका समय देखभाल को करीब ला सकता है।">Your time can bring care closer.</h2>
+          <p data-en="Join local people helping families discover and access community health camps. Everyone has something useful to offer."
+            data-hi="परिवारों को सामुदायिक स्वास्थ्य शिविरों तक पहुँचाने में मदद करने वाले स्थानीय लोगों से जुड़ें। हर कोई कुछ न कुछ योगदान दे सकता है।">Join local people helping families discover and access community health camps. Everyone has something useful to offer.</p>
+          <div class="volunteer-perks">
+            <div><span>◎</span><b data-en="Welcome people" data-hi="लोगों का स्वागत करें">Welcome people</b></div>
+            <div><span>✚</span><b data-en="Support camp teams" data-hi="शिविर टीम की मदद करें">Support camp teams</b></div>
+            <div><span>文</span><b data-en="Help with languages" data-hi="भाषा में मदद करें">Help with languages</b></div>
+          </div>
+        </div>
+        <div id="volunteerPrompt" class="volunteer-form-card volunteer-prompt">
+          <div class="volunteer-prompt-icon">♥</div>
+          <h3 data-en="A little time can make a big difference." data-hi="थोड़ा सा समय बड़ा बदलाव ला सकता है।">A little time can make a big difference.</h3>
+          <p data-en="Help welcome families, guide visitors or support a camp team. Choose what feels right for you."
+            data-hi="परिवारों का स्वागत करें, आगंतुकों को रास्ता दिखाएँ या शिविर टीम की मदद करें—जो आपके लिए सही हो चुनें।">Help welcome families, guide visitors or support a camp team. Choose what feels right for you.</p>
+          <button id="openVolunteerForm" class="btn" type="button" data-en="I’d like to help →" data-hi="मैं मदद करना चाहता/चाहती हूँ →">I’d like to help →</button>
+        </div>
+        <div id="volunteerFormCard" class="volunteer-form-card" hidden>
+          <h3 data-en="Join as a volunteer" data-hi="स्वयंसेवक के रूप में जुड़ें">Join as a volunteer</h3>
+          <p data-en="Tell us how you’d like to help." data-hi="बताएँ कि आप किस तरह मदद करना चाहेंगे।">Tell us how you’d like to help.</p>
+          <form id="volunteerForm" class="register-form volunteer-form">
+          <label><span data-en="Your name" data-hi="आपका नाम">Your name</span><input name="name" required maxlength="100" /></label>
+          <label><span data-en="Email" data-hi="ईमेल">Email</span><input name="email" type="email" required maxlength="150" /></label>
+          <label><span data-en="City / locality" data-hi="शहर / क्षेत्र">City / locality</span><input name="city" required maxlength="120" /></label>
+          <label><span data-en="How would you like to help?" data-hi="आप किस तरह मदद करना चाहेंगे?">How would you like to help?</span><select name="interest" required><option value="outreach">Community outreach</option><option value="medical">Medical support</option><option value="organising">Camp organising</option><option value="translation">Translation</option><option value="other">Other</option></select></label>
+          <label class="volunteer-message"><span data-en="Anything else? (optional)" data-hi="कुछ और बताना चाहेंगे? (वैकल्पिक)">Anything else? (optional)</span><textarea name="message" maxlength="500" rows="3"></textarea></label>
+          <button class="btn" type="submit" data-en="Send volunteer interest" data-hi="स्वयंसेवा के लिए भेजें">Send volunteer interest</button>
+          <p id="volunteerStatus" class="form-status" role="status"></p>
+          </form>
+          <small class="volunteer-privacy" data-en="Your details are shared with the local site admin for follow-up." data-hi="आपकी जानकारी आगे संपर्क के लिए स्थानीय साइट एडमिन को दिखाई देगी।">Your details are shared with the local site admin for follow-up.</small>
+        </div>
+      </div>
+    </section>
+
+    <section id="register" class="cta">
+      <div class="container">
+        <p class="eyebrow" data-en="For organisers" data-hi="आयोजकों के लिए">For organisers</p>
+        <h2 data-en="Are you organising a health camp?" data-hi="क्या आप स्वास्थ्य शिविर आयोजित कर रहे हैं?">Are you
+          organising a health camp?</h2>
+        <p data-en="List it for free and help more people access the care they need."
+          data-hi="इसे निःशुल्क सूचीबद्ध करें और अधिक लोगों तक ज़रूरी देखभाल पहुँचाएँ।">List it for free and help more
+          people access the care they need.</p>
+        <form id="registerForm" class="register-form">
+          <label><span data-en="Camp name" data-hi="शिविर का नाम">Camp name</span><input name="name" required maxlength="100" /></label>
+          <label><span data-en="Service" data-hi="सेवा">Service</span><select name="service" required><option value="eye">Eye care</option><option value="general">General health</option><option value="women">Women &amp; child</option></select></label>
+          <label><span data-en="City / locality" data-hi="शहर / क्षेत्र">City / locality</span><input name="city" required maxlength="120" /></label>
+          <label><span data-en="Venue address" data-hi="स्थान का पता">Venue address</span><input name="address" required maxlength="200" /></label>
+          <label><span data-en="Date" data-hi="तारीख">Date</span><input name="date" type="date" required /></label>
+          <label><span data-en="Time" data-hi="समय">Time</span><input name="time" placeholder="10 AM – 2 PM" required maxlength="40" /></label>
+          <label><span data-en="Organizer email" data-hi="आयोजक का ईमेल">Organizer email</span><input name="email" type="email" required maxlength="150" /></label>
+          <button class="btn light" type="submit" data-en="Submit camp" data-hi="शिविर जमा करें">Submit camp</button>
+          <p id="registerStatus" class="form-status" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="container footer"><a class="brand" href="#home"><span
+          class="brand-mark">✚</span><span>HealthCamp<em>Finder</em></span></a>
+      <p data-en="Care should never be out of reach." data-hi="देखभाल कभी पहुँच से दूर नहीं होनी चाहिए।">Care should
+        never be out of reach.</p><span>© 2026 HealthCamp Finder</span><a href="/admin" class="text-link">Admin</a>
+    </div>
+  </footer>
+  <script src="script.js?v=20261011-5"></script>
+</body>
+
+</html>

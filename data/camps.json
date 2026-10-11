@@ -1,0 +1,44 @@
+[
+  {
+    "id": "sample-delhi-eye",
+    "name": "Free Vision Screening Camp",
+    "nameHi": "निःशुल्क दृष्टि जाँच शिविर",
+    "service": "eye",
+    "city": "New Delhi",
+    "address": "Community Centre",
+    "date": "2026-10-18",
+    "time": "10 AM – 4 PM",
+    "lat": 28.6139,
+    "lon": 77.209,
+    "description": "Vision screening and basic eye-care guidance.",
+    "descriptionHi": "दृष्टि जाँच और आँखों की देखभाल संबंधी सामान्य सलाह।"
+  },
+  {
+    "id": "sample-mumbai-general",
+    "name": "Healthy Families Health Camp",
+    "nameHi": "स्वस्थ परिवार स्वास्थ्य शिविर",
+    "service": "general",
+    "city": "Mumbai",
+    "address": "Shivaji Nagar",
+    "date": "2026-10-20",
+    "time": "9 AM – 3 PM",
+    "lat": 19.076,
+    "lon": 72.8777,
+    "description": "General health check-ups for families.",
+    "descriptionHi": "परिवारों के लिए सामान्य स्वास्थ्य जाँच।"
+  },
+  {
+    "id": "sample-bengaluru-women",
+    "name": "Mother & Child Wellness Day",
+    "nameHi": "माँ और बच्चे का स्वास्थ्य दिवस",
+    "service": "women",
+    "city": "Bengaluru",
+    "address": "Indiranagar",
+    "date": "2026-10-22",
+    "time": "10 AM – 2 PM",
+    "lat": 12.9716,
+    "lon": 77.5946,
+    "description": "Wellness information and basic screening for mothers and children.",
+    "descriptionHi": "माताओं और बच्चों के लिए स्वास्थ्य जानकारी और सामान्य जाँच।"
+  }
+]

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin | HealthCamp Finder</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="nav-wrap">
+    <nav class="nav container" aria-label="Admin navigation">
+      <a class="brand" href="/"><span class="brand-mark">✚</span><span>HealthCamp<em>Finder</em></span></a>
+      <div class="nav-actions"><a class="text-link" href="/">← Back to website</a></div>
+    </nav>
+  </header>
+  <main class="admin-shell container">
+    <section id="authPanel" class="admin-panel" hidden>
+      <p class="eyebrow">Admin access</p>
+      <h1 id="authTitle">Admin sign in</h1>
+      <p id="authIntro">Sign in to add and review health camp listings.</p>
+      <form id="setupForm" class="admin-form" hidden>
+        <label>Create an admin password (at least 12 characters)<input name="password" type="password" minlength="12" autocomplete="new-password" required /></label>
+        <button class="btn" type="submit">Create admin access</button>
+      </form>
+      <form id="loginForm" class="admin-form" hidden>
+        <label>Admin password<input name="password" type="password" autocomplete="current-password" required /></label>
+        <button class="btn" type="submit">Sign in</button>
+      </form>
+      <p id="authStatus" class="admin-status" role="status"></p>
+    </section>
+
+    <section id="managerPanel" hidden>
+      <div class="admin-heading"><div><p class="eyebrow">Camp management</p><h1>Add a health camp</h1><p>Enter the camp information below. New admin entries appear in the public camp list right away.</p></div><button id="logoutButton" class="filter" type="button">Sign out</button></div>
+      <div class="admin-panel">
+        <form id="campForm" class="admin-form admin-grid">
+          <label>Camp name (English)<input name="name" maxlength="100" required /></label>
+          <label>Camp name (Hindi, optional)<input name="nameHi" maxlength="100" /></label>
+          <label>Service<select name="service" required><option value="eye">Eye care</option><option value="general">General health</option><option value="women">Women &amp; child</option></select></label>
+          <label>City<input name="city" maxlength="120" placeholder="e.g. New Delhi" required /></label>
+          <label>Venue / locality<input name="address" maxlength="200" placeholder="e.g. Community Centre, Connaught Place" required /></label>
+          <label>Date<input name="date" type="date" required /></label>
+          <label>Opening hours<input name="time" maxlength="40" placeholder="e.g. 10 AM – 4 PM" required /></label>
+          <label>Latitude<input name="lat" type="number" step="any" min="-90" max="90" placeholder="e.g. 28.6139" required /></label>
+          <label>Longitude<input name="lon" type="number" step="any" min="-180" max="180" placeholder="e.g. 77.2090" required /></label>
+          <label>Short details (English)<textarea name="description" maxlength="500" rows="3" placeholder="Screenings, services offered, who can attend…"></textarea></label>
+          <label>Short details (Hindi, optional)<textarea name="descriptionHi" maxlength="500" rows="3"></textarea></label>
+          <label>Organizer email (private)<input name="email" type="email" maxlength="150" placeholder="Used for admin records only" /></label>
+          <div class="coordinate-help"><b>Google Maps se coordinates kaise lein?</b><br>Google Maps mein venue search karein. Location pin par right-click karke latitude/longitude copy karein. Dono numbers yahan paste karein. Public site par address click karne se Google Maps khulega.</div>
+          <button class="btn" type="submit">Add camp to website</button>
+          <p id="campStatus" class="admin-status" role="status"></p>
+        </form>
+      </div>
+      <div class="admin-panel camp-admin-list"><h2>Current camp listings</h2><div id="adminCampList" aria-live="polite"></div></div>
+      <div class="admin-panel camp-admin-list"><h2>Volunteer interests</h2><div id="adminVolunteerList" aria-live="polite"></div></div>
+    </section>
+  </main>
+  <script src="admin.js"></script>
+</body>
+</html>

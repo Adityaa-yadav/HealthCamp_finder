@@ -1,0 +1,9 @@
+{
+  "name": "healthcamp-finder",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A bilingual community health camp finder with an Express backend.",
+  "scripts": { "start": "node server.js" },
+  "dependencies": { "express": "^5.1.0" },
+  "engines": { "node": ">=18" }
+}
